@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>ShapedCore</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="stylesheet" href="src/style/main.css">
+</head>
+
+<body>
+    <canvas></canvas>
+    <script type="module" src="src/app/main.js"></script>
+</body>
+
+</html>
