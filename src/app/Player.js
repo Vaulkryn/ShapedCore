@@ -12,7 +12,7 @@ class Player {
         this.loadResources();
         this.initProperties();
         this.initPlayerEvent();
-        this.initDebugTools();
+        this.initFramerateCalculation();
     }
 
     async initData() {
@@ -55,8 +55,7 @@ class Player {
         addEventListener('keyup', this.input);
     }
 
-
-    initDebugTools() {
+    initFramerateCalculation() {
         this.lastTime = performance.now();
         this.frameCount = 0;
         this.fps = 0;
@@ -217,6 +216,7 @@ class Player {
     }
 
     debugTools() {
+        /***** FPS *****/
         this.frameCount++;
         const currentTime = performance.now();
         const delta = currentTime - this.lastTime;
@@ -225,6 +225,7 @@ class Player {
             this.frameCount = 0;
             this.lastTime = currentTime;
         }
+        /***************/
         this.ctx.shadowBlur = 0;
         this.ctx.shadowColor = "transparent";
         this.ctx.font = '18px Comic Sans MS';
