@@ -9,9 +9,9 @@ class EntityMovementEffect {
 
     getColorForEntity(entityName) {
         const colors = {
-            'player': 'rgba(255, 255, 255)',
-            'enemy': 'rgba(225, 225, 225)',
-            'default': 'rgba(225, 225, 225)',
+            'player': 'rgba(255, 255, 255, ALPHA)',
+            'enemy': 'rgba(225, 225, 225, ALPHA)',
+            'default': 'rgba(225, 225, 225, ALPHA)',
         };
         return colors[entityName] || colors['default'];
     }
