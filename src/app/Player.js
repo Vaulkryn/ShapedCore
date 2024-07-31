@@ -180,18 +180,26 @@ class Player {
     }
 
     update() {
-        this.movementEffect.update(this, this.ctx);
-        this.draw();
+        this.update_position();
+        this.update_playerBounds();
+        this.update_projectiles();
+        this.update_movementEffect();
+    }
 
+    update_position() {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
+    }
 
+    update_playerBounds() {
         const windowLimit = 32;
         if (this.position.x - windowLimit < 0) this.position.x = windowLimit;
         if (this.position.x + windowLimit > this.canvasWidth) this.position.x = this.canvasWidth - windowLimit;
         if (this.position.y - windowLimit < 0) this.position.y = windowLimit;
         if (this.position.y + windowLimit > this.canvasHeight) this.position.y = this.canvasHeight - windowLimit;
+    }
 
+    update_projectiles() {
         const activeProjectiles = [];
         this.projectiles.forEach((projectile) => {
             projectile.update(this.ctx);
@@ -201,6 +209,11 @@ class Player {
             }
         });
         this.projectiles = activeProjectiles;
+    }
+
+    update_movementEffect() {
+        this.movementEffect.update(this, this.ctx);
+        this.draw();
     }
 
     debugTools() {
