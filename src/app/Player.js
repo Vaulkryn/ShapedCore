@@ -9,14 +9,33 @@ class Player {
         this.ctx = ctx;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
+        this.loadResources();
+        this.initProperties();
+        this.initPlayerEvent();
+        this.initDebugTools();
+    }
+
+    async initData() {
+        await this.coordsLoader.loadCoords();
+        await this.partsLoader.loadParts();
+    }
+
+    loadResources() {
+        this.coordsLoader = new CoordsLoader('src/data/PlayerCharacter.json');
+        this.partsLoader = new PartsLoader(this.coordsLoader, basicPlayer, 'basicPlayer');
+        this.movementEffect = new EntityMovementEffect('player');
+    }
+
+    initProperties() {
         this.mouseX = 0;
         this.mouseY = 0;
         this.angle = 0;
         this.speed = 7;
+        this.projectiles = [];
         this.velocity = { x: 0, y: 0 };
         this.position = {
-            x: canvasWidth / 2,
-            y: canvasHeight / 2
+            x: this.canvasWidth / 2,
+            y: this.canvasHeight / 2
         };
         this.keys = {
             z: { pressed: false },
@@ -24,22 +43,23 @@ class Player {
             s: { pressed: false },
             d: { pressed: false },
         };
-        this.projectiles = [];
-        this.shootingInterval;
+    }
+
+    initPlayerEvent() {
         this.input = this.keyInput.bind(this);
-        this.initPlayerEvent();
-        this.movementEffect = new EntityMovementEffect('player');
-        this.coordsLoader = new CoordsLoader('src/data/PlayerCharacter.json');
-        this.partsLoader = new PartsLoader(this.coordsLoader, basicPlayer, 'basicPlayer');
-        //DebugTools
+        addEventListener('contextmenu', (event) => this.contextMenu(event));
+        addEventListener('mousemove', (event) => this.mouseXY(event));
+        addEventListener('mousedown', (event) => this.mouseDown(event));
+        addEventListener('mouseup', (event) => this.mouseUp(event));
+        addEventListener('keydown', this.input);
+        addEventListener('keyup', this.input);
+    }
+
+
+    initDebugTools() {
         this.lastTime = performance.now();
         this.frameCount = 0;
         this.fps = 0;
-    }
-
-    async initData() {
-        await this.coordsLoader.loadCoords();
-        await this.partsLoader.loadParts();
     }
 
     getPosition() {
@@ -55,15 +75,6 @@ class Player {
 
     isMoving() {
         return this.velocity.x !== 0 || this.velocity.y !== 0;
-    }
-
-    initPlayerEvent() {
-        addEventListener('contextmenu', (event) => this.contextMenu(event));
-        addEventListener('mousemove', (event) => this.mouseXY(event));
-        addEventListener('mousedown', (event) => this.mouseDown(event));
-        addEventListener('mouseup', (event) => this.mouseUp(event));
-        addEventListener('keydown', this.input);
-        addEventListener('keyup', this.input);
     }
 
     contextMenu(event) {
