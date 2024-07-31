@@ -6,58 +6,6 @@ canvas.width = innerWidth
 canvas.height = innerHeight
 
 const player = new Player(ctx, canvas.width, canvas.height);
-const squares = [];
-const MAX_SQUARES = 20;
-
-function createSquare(x, y) {
-    const appearTime = Date.now();
-    const lifeSpan = Math.random() * 1000;
-    const rotation = Math.random() * 360;
-    const size = 12;
-    squares.push({ x, y, size, rotation, appearTime, lifeSpan });
-}
-
-function drawSquares() {
-    const now = Date.now();
-    for (let i = squares.length - 1; i >= 0; i--) {
-        const square = squares[i];
-        const elapsed = now - square.appearTime;
-        const progress = elapsed / square.lifeSpan;
-
-        if (progress >= 1) {
-            squares.splice(i, 1);
-            continue;
-        }
-
-        const alpha = 1 - progress;
-        const initialSize = square.size;
-        const finalSize = square.size / 2;
-        const currentSize = initialSize - (initialSize - finalSize) * progress;
-
-        ctx.save();
-        ctx.translate(square.x, square.y);
-        ctx.rotate(square.rotation * Math.PI / 180);
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-
-        const radius = 1;
-        const halfSize = currentSize / 2.5;
-
-        ctx.beginPath();
-        ctx.moveTo(-halfSize + radius, -halfSize);
-        ctx.lineTo(halfSize - radius, -halfSize);
-        ctx.quadraticCurveTo(halfSize, -halfSize, halfSize, -halfSize + radius);
-        ctx.lineTo(halfSize, halfSize - radius);
-        ctx.quadraticCurveTo(halfSize, halfSize, halfSize - radius, halfSize);
-        ctx.lineTo(-halfSize + radius, halfSize);
-        ctx.quadraticCurveTo(-halfSize, halfSize, -halfSize, halfSize - radius);
-        ctx.lineTo(-halfSize, -halfSize + radius);
-        ctx.quadraticCurveTo(-halfSize, -halfSize, -halfSize + radius, -halfSize);
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
-    }
-}
 
 function grid() {
     const spacing = 35;
@@ -125,20 +73,6 @@ function executeCoreLoop() {
 
         grid();
         innerShadow();
-        drawSquares();
-        if (player.isMoving()) {
-            while (squares.length < MAX_SQUARES) {
-                const playerPosition = player.getPosition();
-                const playerRotation = player.getAngle();
-                const offsetDistance = 10;
-                const baseOffsetX = Math.cos(playerRotation + Math.PI / 2) * offsetDistance;
-                const baseOffsetY = Math.sin(playerRotation + Math.PI / 2) * offsetDistance;
-                const variationRange = 40;
-                const randomOffsetX = baseOffsetX + (Math.random() - 0.5) * variationRange;
-                const randomOffsetY = baseOffsetY + (Math.random() - 0.5) * variationRange;
-                createSquare(playerPosition.x + randomOffsetX, playerPosition.y + randomOffsetY);
-            }
-        }
         player.update()
         player.debugTools()
     } catch (error) {

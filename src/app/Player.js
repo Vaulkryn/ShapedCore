@@ -2,6 +2,7 @@ import Projectile from './Projectile.js';
 import CoordsLoader from './CoordsLoader.js';
 import PartsLoader from './PartsLoader.js';
 import basicPlayer from '../config/PlayerCharacter.js';
+import EntityMovementEffect from './EntityMovementEffect';
 
 class Player {
     constructor(ctx, canvasWidth, canvasHeight) {
@@ -27,6 +28,7 @@ class Player {
         this.shootingInterval;
         this.input = this.keyInput.bind(this);
         this.initPlayerEvent();
+        this.movementEffect = new EntityMovementEffect('player');
         this.coordsLoader = new CoordsLoader('src/data/PlayerCharacter.json');
         this.partsLoader = new PartsLoader(this.coordsLoader, basicPlayer, 'basicPlayer');
         //DebugTools
@@ -167,9 +169,12 @@ class Player {
     }
 
     update() {
+        this.movementEffect.update(this, this.ctx);
         this.draw();
+
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
+
         const windowLimit = 32;
         if (this.position.x - windowLimit < 0) this.position.x = windowLimit;
         if (this.position.x + windowLimit > this.canvasWidth) this.position.x = this.canvasWidth - windowLimit;
