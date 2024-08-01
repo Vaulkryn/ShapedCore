@@ -157,7 +157,7 @@ class Player {
         this.partsLoader.entityAssembler(this.ctx);
     }
 
-    zoneEffect(x, y, radius) {
+    /*zoneEffect(x, y, radius) {
         this.ctx.shadowBlur = 0;
         this.ctx.beginPath();
         this.ctx.arc(x, y, radius, 0, Math.PI * 2, false);
@@ -166,7 +166,7 @@ class Player {
         this.ctx.stroke();
         this.ctx.fill();
         this.ctx.closePath();
-    }
+    }*/
 
     draw() {
         this.ctx.save();
