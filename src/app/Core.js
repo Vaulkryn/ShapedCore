@@ -1,5 +1,6 @@
 import Map from './Map.js';
 import Player from './Player.js';
+import Enemy from './EnemyAttacker.js';
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -8,9 +9,11 @@ canvas.height = innerHeight
 
 const map = new Map(ctx, canvas.width, canvas.height);
 const player = new Player(ctx, canvas.width, canvas.height);
+const enemy = new Enemy(ctx, canvas.width, canvas.height);
 
 async function dataLoading() {
     await player.initData();
+    await enemy.initData();
     executeCoreLoop();
 }
 
@@ -25,6 +28,9 @@ function executeCoreLoop() {
         map.innerShadow();
         player.update()
         player.debugTools()
+        enemy.update()
+        enemy.debugTools()
+
     } catch (error) {
         console.error(error)
         cancelAnimationFrame(gameLoop)

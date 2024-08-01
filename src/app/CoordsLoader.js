@@ -11,7 +11,7 @@ class CoordsLoader {
             //console.log('Fichier brut JSON:\n', text);
 
             this.coords = JSON.parse(text);
-            //console.log('Données de rendu entité:\n', this.coords);
+            //console.log('Données formatées:\n', this.coords);
         } catch (error) {
             console.error(error);
         }
