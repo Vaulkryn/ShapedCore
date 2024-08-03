@@ -1,5 +1,5 @@
 class Projectile {
-    static cooldownTime = 250;
+    static cooldownTime = 400;
     static lastShotTime = 0;
     static speed = 11;
     constructor({ position, velocity }) {

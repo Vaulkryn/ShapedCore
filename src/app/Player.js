@@ -93,7 +93,7 @@ class Player {
                 if (!this.shootingInterval) {
                     this.shootingInterval = setInterval(() => {
                         this.shoot();
-                    }, 150);
+                    },);
                 }
                 break;
             case 1:
