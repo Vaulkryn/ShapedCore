@@ -1,10 +1,10 @@
 import GameContext from './GameContext.js';
-import Physics from './Physics';
+import Physics from './Physics.js';
 import CoordsLoader from './CoordsLoader.js';
 import PartsLoader from './PartsLoader.js';
 import Projectile from './Projectile.js';
 import basicPlayer from '../config/PlayerCharacter.js';
-import EntityMovementEffect from './EntityMovementEffect';
+import EntityMovementEffect from './EntityMovementEffect.js';
 
 class Player {
     constructor() {
