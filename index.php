@@ -11,7 +11,11 @@
 </head>
 
 <body>
-    <canvas></canvas>
+    <div id="canvas-container">
+        <canvas id="background"></canvas>
+        <canvas id="entities"></canvas>
+        <canvas id="gameloopError"></canvas>
+    </div>
     <audio id="playerSFX_01" src="sound/effect/Player_LaserCannon.mp3" preload="auto"></audio>
     <audio id="enemySFX_01" src="sound/effect/EnemyT1_LaserCannon.mp3" preload="auto"></audio>
     <script type="module" src="src/app/core.js"></script>

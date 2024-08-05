@@ -1,26 +1,31 @@
-import Projectile from './Projectile.js';
+import GameContext from './GameContext.js';
+import Physics from './Physics';
 import CoordsLoader from './CoordsLoader.js';
 import PartsLoader from './PartsLoader.js';
+import Projectile from './Projectile.js';
 import basicPlayer from '../config/PlayerCharacter.js';
 import EntityMovementEffect from './EntityMovementEffect';
 
 class Player {
-    constructor(ctx, canvasWidth, canvasHeight) {
-        this.ctx = ctx;
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
+    constructor() {
         this.loadResources();
         this.initProperties();
         this.initPlayerEvent();
         this.initFramerateCalculation();
     }
 
-    async initData() {
+    async characterData() {
         await this.coordsLoader.loadCoords();
         await this.partsLoader.loadParts();
+        //console.log('Player parts loaded:', this.partsLoader.parts);
     }
 
     loadResources() {
+        this.gameContext = new GameContext('entities');
+        this.ctx = this.gameContext.getContext();
+        this.canvasWidth = this.gameContext.getWidth();
+        this.canvasHeight = this.gameContext.getHeight();
+        this.physics = new Physics();
         this.coordsLoader = new CoordsLoader('src/data/PlayerCharacter.json');
         this.partsLoader = new PartsLoader(this.coordsLoader, basicPlayer, 'basicPlayer');
         this.movementEffect = new EntityMovementEffect('player');
@@ -89,10 +94,10 @@ class Player {
         const { button } = event;
         switch (button) {
             case 0:
-                this.shoot();
+                this.shoot('laser', this.mouseX, this.mouseY);
                 if (!this.shootingInterval) {
                     this.shootingInterval = setInterval(() => {
-                        this.shoot();
+                        this.shoot('laser', this.mouseX, this.mouseY);
                     },);
                 }
                 break;
@@ -145,10 +150,15 @@ class Player {
         }
     }
 
-    shoot() {
-        const projectile = Projectile.createProjectile(this, this.mouseX, this.mouseY);
+    shoot(weaponType, mouseX, mouseY) {
+        let projectile;
+        if (weaponType === 'laser') {
+            projectile = Projectile.createProjectile(this, mouseX, mouseY);
+        } else {
+            // Ajoutez d'autres types de projectiles ici si nécessaire
+        }
         if (projectile) {
-            this.projectiles.push(projectile);
+            this.physics.addProjectile(projectile);
         }
     }
 
@@ -172,17 +182,22 @@ class Player {
         this.ctx.save();
         this.ctx.translate(this.position.x, this.position.y);
         this.ctx.rotate(this.angle);
-        //this.zoneEffect(0, 0, 50);
+        // this.zoneEffect(0, 0, 50);
         this.playerCharacter();
         this.setAngle();
         this.ctx.restore();
     }
 
     update() {
+        this.update_physics()
         this.update_position();
         this.update_playerBounds();
-        this.update_projectiles();
         this.update_movementEffect();
+        this.draw();
+    }
+
+    update_physics() {
+        this.physics.update();
     }
 
     update_position() {
@@ -198,21 +213,8 @@ class Player {
         if (this.position.y + windowLimit > this.canvasHeight) this.position.y = this.canvasHeight - windowLimit;
     }
 
-    update_projectiles() {
-        const activeProjectiles = [];
-        this.projectiles.forEach((projectile) => {
-            projectile.update(this.ctx);
-            if (projectile.position.x >= 0 && projectile.position.x <= this.ctx.canvas.width &&
-                projectile.position.y >= 0 && projectile.position.y <= this.ctx.canvas.height) {
-                activeProjectiles.push(projectile);
-            }
-        });
-        this.projectiles = activeProjectiles;
-    }
-
     update_movementEffect() {
         this.movementEffect.update(this, this.ctx);
-        this.draw();
     }
 
     debugTools() {

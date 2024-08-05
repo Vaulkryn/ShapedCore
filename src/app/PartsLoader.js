@@ -8,7 +8,6 @@ class PartsLoader {
 
     async loadParts() {
         const partsToLoad = this.coordsLoader.getAvailableCoords(this.entity);
-
         for (const part of partsToLoad) {
             this.parts[part] = this.coordsLoader.getCoords(this.entity, part);
         }
@@ -16,12 +15,12 @@ class PartsLoader {
 
     addParts(part) {
         this.parts[part] = this.coordsLoader.getCoords(this.entity, part);
-        console.log(`Ajouté ${part}:`, this.parts[part]);
+        //console.log(`Ajouté ${part}:`, this.parts[part]);
     }
 
     deleteParts(part) {
         delete this.parts[part];
-        console.log(`Supprimé ${part}`);
+        //console.log(`Supprimé ${part}`);
     }
 
     calculateCentroid(vertex) {

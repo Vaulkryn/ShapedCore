@@ -1,12 +1,15 @@
+import GameContext from './GameContext.js';
+
 class Map {
-    constructor(ctx, canvasWidth, canvasHeight) {
-        this.ctx = ctx;
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
+    constructor() {
+        this.gameContext = new GameContext('background');
+        this.ctx = this.gameContext.getContext();
+        this.canvasWidth = this.gameContext.getWidth();
+        this.canvasHeight = this.gameContext.getHeight();
     }
 
     grid() {
-        const spacing = 35;
+        const spacing = 34;
         this.ctx.shadowBlur = 0;
         this.ctx.shadowColor = "transparent";
         this.ctx.strokeStyle = `rgba(255, 255, 255, 0.4)`;
@@ -55,6 +58,11 @@ class Map {
         gradient.addColorStop(1, innerColor);
         this.ctx.fillStyle = gradient;
         this.ctx.fillRect(this.canvasWidth - shadowWidth, 0, shadowWidth, this.canvasHeight);
+    }
+
+    draw() {
+        this.grid();
+        this.innerShadow();
     }
 }
 

@@ -1,16 +1,16 @@
+import GameContext from './GameContext.js';
+
 class Projectile {
     static cooldownTime = 400;
     static lastShotTime = 0;
     static speed = 11;
     constructor({ position, velocity }) {
+        this.gameContext = new GameContext('entities');
+        this.ctx = this.gameContext.getContext();
         this.frontWidth = 7;
         this.rearWidth = 4;
         this.length = 25;
         this.angle = 0;
-        this.step = 3;
-        this.shadowBlur = 30;
-        this.targetShadowBlur = 35;
-        this.isIncreasing = true;
         this.position = position;
         this.velocity = velocity;
         this.soundEffect();
@@ -75,34 +75,22 @@ class Projectile {
     }
 
     laserEnergy(ctx, x, y, frontWidth, rearWidth, length, radius) {
-        /*if (this.isIncreasing) {
-            this.shadowBlur += this.step;
-            if (this.shadowBlur >= this.targetShadowBlur) {
-                this.isIncreasing = false;
-            }
-        } else {
-            this.shadowBlur -= this.step;
-            if (this.shadowBlur <= 1) {
-                this.isIncreasing = true;
-            }
-        }*/
-       
-        ctx.shadowColor = 'rgba(255, 165, 0)';
-        ctx.shadowBlur = 4;
+        this.ctx.shadowColor = 'rgba(255, 165, 0)';
+        this.ctx.shadowBlur = 4;
         this.laserForm(ctx, x, y, frontWidth, rearWidth, length, radius);
     }
 
-    draw(ctx) {
-        ctx.save();
+    draw() {
+        this.ctx.save();
         this.angle = Math.atan2(this.velocity.y, this.velocity.x);
-        ctx.translate(this.position.x, this.position.y);
-        ctx.rotate(this.angle);
-        this.laserEnergy(ctx, -this.length / 2, 0, this.frontWidth, this.rearWidth, this.length, 5);
-        ctx.restore();
+        this.ctx.translate(this.position.x, this.position.y);
+        this.ctx.rotate(this.angle);
+        this.laserEnergy(this.ctx, -this.length / 2, 0, this.frontWidth, this.rearWidth, this.length, 4);
+        this.ctx.restore();
     }
 
-    update(ctx) {
-        this.draw(ctx);
+    update() {
+        this.draw();
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
     }

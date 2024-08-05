@@ -1,24 +1,29 @@
-import Projectile from './Projectile.js';
+import GameContext from './GameContext.js';
+import Physics from './Physics';
 import CoordsLoader from './CoordsLoader.js';
 import PartsLoader from './PartsLoader.js';
+import Projectile from './Projectile.js';
 import enemyT1v1 from '../config/EnemyAttacker.js';
 import EntityMovementEffect from './EntityMovementEffect';
 
 class EnemyAttacker {
-    constructor(ctx, canvasWidth, canvasHeight) {
-        this.ctx = ctx;
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
+    constructor() {
         this.loadResources();
         this.initProperties();
     }
 
-    async initData() {
+    async characterData() {
         await this.coordsLoader.loadCoords();
         await this.partsLoader.loadParts();
+        //console.log('Enemy parts loaded:', this.partsLoader.parts);
     }
 
     loadResources() {
+        this.gameContext = new GameContext('entities');
+        this.ctx = this.gameContext.getContext();
+        this.canvasWidth = this.gameContext.getWidth();
+        this.canvasHeight = this.gameContext.getHeight();
+        this.physics = new Physics();
         this.coordsLoader = new CoordsLoader('src/data/EnemyAttacker.json');
         this.partsLoader = new PartsLoader(this.coordsLoader, enemyT1v1, 'enemyT1v1');
         this.movementEffect = new EntityMovementEffect('enemy');
@@ -94,10 +99,15 @@ class EnemyAttacker {
     }
 
     update() {
+        this.update_physics();
         this.update_position();
         this.update_enemyBounds();
-        this.update_projectiles();
         this.update_movementEffect();
+        this.draw();
+    }
+
+    update_physics() {
+        this.physics.update();
     }
 
     update_position() {
@@ -113,21 +123,8 @@ class EnemyAttacker {
         if (this.position.y + windowLimit > this.canvasHeight) this.position.y = this.canvasHeight - windowLimit;
     }
 
-    update_projectiles() {
-        const activeProjectiles = [];
-        this.projectiles.forEach((projectile) => {
-            projectile.update(this.ctx);
-            if (projectile.position.x >= 0 && projectile.position.x <= this.ctx.canvas.width &&
-                projectile.position.y >= 0 && projectile.position.y <= this.ctx.canvas.height) {
-                activeProjectiles.push(projectile);
-            }
-        });
-        this.projectiles = activeProjectiles;
-    }
-
     update_movementEffect() {
         this.movementEffect.update(this, this.ctx);
-        this.draw();
     }
 
     debugTools() {
