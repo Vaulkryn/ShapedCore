@@ -1,0 +1,14 @@
+theme: jekyll-theme-cayman
+markdown: kramdown
+
+include:
+  - "*.md"
+  - "_*.yml"
+
+navigation:
+  - title: "README"
+    url: "/README.md"
+  - title: "Project Structure"
+    url: "/ProjectStructure.md"
+  - title: "MIT License"
+    url: "/MIT-License.md"
