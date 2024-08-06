@@ -18,7 +18,7 @@
     </div>
     <audio id="playerSFX_01" src="sound/effect/Player_LaserCannon.mp3" preload="auto"></audio>
     <audio id="enemySFX_01" src="sound/effect/EnemyT1_LaserCannon.mp3" preload="auto"></audio>
-    <script type="module" src="src/app/core.js"></script>
+    <script type="module" src="src/app/Core.js"></script>
 </body>
 
 </html>
