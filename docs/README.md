@@ -1,5 +1,69 @@
-# ShapedCore
-A complete 2D game developed in pure javascript.
+<p align="center">
+  <img src="../img/github_logo.png">
+</p>
 
-# License
-The ShapedCore project is licensed under the MIT license.
+# ShapedCore
+Ce projet sera un jeu en 2D style "shooter" uniquement écrit en javascript.
+
+Le jeu étant aussi bien un apprentissage qu'un challenge, beaucoup d'éléments peuvent radicalement changer d'une mise à jour à l'autre.</br>
+Cela vaut aussi pour la roadmap, les idées inscrites sont susceptibles d'évoluer voire d'être supprimée.</br>
+Il existe tout de même une ligne directrice que suivront toutes les prochaines mises à jour et dont elles ne dévieront jamais.
+
+---
+
+__Concept central:__</br>
+- Chaque entité sera composée d'un noyau (ou plus) entouré de plusieurs parties qui le protégeront.</br>
+- Ces parties seront destructibles et représenteront la santé restante de l'entité ainsi que ses capacités disponibles.</br>
+- Chaque partie occupera une position bien définie par rapport au noyau et sera responsable de la possession ou non des capacités de l'entité.</br>
+- Certaines capacités seront liées à plusieurs parties, de sorte que si le nombre de parties associées à une capacité est réduit, son efficacité diminuera également.</br>
+- Une interface permettra de débloquer de nouvelles parties, et donc de nouvelles capacités, ainsi que des passifs en utilisant une monnaie récupérée sur les ennemis.</br>
+- Un système de déviation de destruction pourra être activé, permettant de dévier la destruction d'une partie vers une autre.</br>
+- Même avec des parties manquante une entité peut survivre mais sera certainement limité dans ses actions.</br>
+- La destruction est totale si le noyau est touché une seule fois.
+
+## Ressources
+
+**[Structure du projet](./ProjectStructure.md)**
+
+**[Systèmes de jeu](./.md)**
+
+**[Conception des niveaux](./.md)**
+
+**[Comportements des IA](./.md)**
+
+**[Conception graphique 2D](./.md)**
+
+**[Économie](./.md)**
+
+**[UI/UX](./.md)**
+
+**[Sound Design](./.md)**
+
+**[Narration](./.md)**
+
+**[Multijoueur](./.md)**
+
+## Roadmap
+🛠️ En développement</br>
+📝 Planifié</br>
+✅ Terminé</br>
+🔄 Reporté</br>
+
+---
+
+### v0.1.0
+| Version  | Objectif                                  | État |
+|:--------:|:------------------------------------------|:----:|
+| v0.0.1   | Système de collision SAT                  | 🛠️  |
+| v0.0.2   | IA pour "EnemyAttacker"                   | 📝  |
+| v0.0.3   | Première boucle de gameplay simple        | 📝  |
+| v0.0.4   | Menu pour lancer la boucle                | 📝  |
+| v0.0.5   | Menu pour les outils de debug             | 📝  |
+
+__non assigné__
+| Version | Objectif                                        | État |
+|:--------|:------------------------------------------------|:----:|
+| _       | Renseigner les documents des aspects du jeu     | ?    |
+
+## License
+Le projet ShapedCore est sous licence MIT.
