@@ -1,4 +1,5 @@
 import GameContext from './GameContext.js';
+import GameEngine from './GameEngine.js';
 import Map from './Map.js';
 import Player from './Player.js';
 import EnemyAttacker from './EnemyAttacker.js';
@@ -6,9 +7,13 @@ import EnemyAttacker from './EnemyAttacker.js';
 const backgroundCtx = GameContext.getInstance('background');
 const entitiesCtx = GameContext.getInstance('entities');
 const gameloopErrorCtx = GameContext.getInstance('gameloopError');
+const gameEngine = new GameEngine();
 const map = new Map();
 const player = new Player();
 const enemy = new EnemyAttacker();
+
+gameEngine.addPlayer(player);
+gameEngine.addEnemy(enemy);
 
 async function dataLoading() {
     await player.characterData();
@@ -23,10 +28,9 @@ function executeCoreLoop() {
 
         backgroundCtx.fillCanvas();
         entitiesCtx.fillCanvas();
+        gameEngine.update();
         map.draw();
-        player.update();
         player.debugTools();
-        enemy.update()
         enemy.debugTools()
 
     } catch (error) {
