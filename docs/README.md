@@ -25,45 +25,48 @@ __Concept central:__</br>
 
 **[Structure du projet](./ProjectStructure.md)**
 
-**[Systèmes de jeu](./.md)**
+**[Systèmes de jeu](./Systems.md)**
 
-**[Conception des niveaux](./.md)**
+**[Conception des niveaux](./Levels.md)**
 
-**[Comportements des IA](./.md)**
+**[Comportements des IA](./AI_Behaviors.md)**
 
-**[Conception graphique 2D](./.md)**
+**[Conception graphique 2D](./2DGraphicsDesign.md)**
 
-**[Économie](./.md)**
+**[Économie](./Economy.md)**
 
-**[UI/UX](./.md)**
+**[UI/UX](./UI-UX.md)**
 
-**[Sound Design](./.md)**
+**[Sound Design](./SoundDesign.md)**
 
-**[Narration](./.md)**
+**[Narration](./Narrative.md)**
 
-**[Multijoueur](./.md)**
+**[Multijoueur](./Multiplayer.md)**
 
 ## Roadmap
 🛠️ En développement</br>
+⚠️ Correctif nécessaire</br>
 📝 Planifié</br>
 ✅ Terminé</br>
 🔄 Reporté</br>
+❌ Annulé</br>
 
 ---
 
 ### v0.1.0
 | Version  | Objectif                                  | État |
 |:--------:|:------------------------------------------|:----:|
-| v0.0.1   | Système de collision SAT                  | 🛠️  |
-| v0.0.2   | IA pour "EnemyAttacker"                   | 📝  |
+| v0.0.1   | Moteur 2D Matter.js                       | 🛠️  |
+| v0.0.2   | Comportement IA basique                   | 📝  |
 | v0.0.3   | Première boucle de gameplay simple        | 📝  |
 | v0.0.4   | Menu pour lancer la boucle                | 📝  |
 | v0.0.5   | Menu pour les outils de debug             | 📝  |
+| _        | Système de collision SAT                  | ❌  |
 
 __non assigné__
 | Version | Objectif                                        | État |
 |:--------|:------------------------------------------------|:----:|
-| _       | Renseigner les documents des aspects du jeu     | ?    |
+| _       | Renseigner les documents des aspects du jeu     | /    |
 
 ## License
 Le projet ShapedCore est sous licence MIT.
