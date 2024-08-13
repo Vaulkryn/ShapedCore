@@ -2,9 +2,18 @@
 ShapedCore
 │
 ├── docs/
+│   ├── 2DGraphicsDesign
+│   ├── AI_Behaviors.md
+│   ├── Economy.md
+│   ├── Levels.md
 │   ├── LICENSE.txt
+│   ├── Multiplayer.md
+│   ├── Narrative.md
 │   ├── ProjectStructure.md
-│   └── README.md
+│   ├── README.md
+│   ├── SoundDesign.md
+│   ├── Systems.md
+│   └── UI-UX.md
 │
 ├── img/
 │   ├── browser_logo.png
@@ -24,9 +33,9 @@ ShapedCore
 │   │   ├── EnemyAttacker.js
 │   │   ├── EntityMovementEffect.js
 │   │   ├── GameContext.js
+│   │   ├── GameEngine.js
 │   │   ├── Map.js
 │   │   ├── PartsLoader.js
-│   │   ├── Physics.js
 │   │   ├── Player.js
 │   │   └── Projectile.js
 │   │
