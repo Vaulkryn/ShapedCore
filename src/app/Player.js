@@ -1,5 +1,5 @@
 import GameContext from './GameContext.js';
-import Physics from './Physics.js';
+import GameEngine from './GameEngine.js';
 import CoordsLoader from './CoordsLoader.js';
 import PartsLoader from './PartsLoader.js';
 import Projectile from './Projectile.js';
@@ -17,7 +17,6 @@ class Player {
     async characterData() {
         await this.coordsLoader.loadCoords();
         await this.partsLoader.loadParts();
-        //console.log('Player parts loaded:', this.partsLoader.parts);
     }
 
     loadResources() {
@@ -25,9 +24,9 @@ class Player {
         this.ctx = this.gameContext.getContext();
         this.canvasWidth = this.gameContext.getWidth();
         this.canvasHeight = this.gameContext.getHeight();
-        this.physics = new Physics();
+        this.gameEngine = new GameEngine();
         this.coordsLoader = new CoordsLoader('src/data/PlayerCharacter.json');
-        this.partsLoader = new PartsLoader(this.coordsLoader, basicPlayer, 'basicPlayer');
+        this.partsLoader = new PartsLoader(this.coordsLoader, basicPlayer, 'basicPlayer', this);
         this.movementEffect = new EntityMovementEffect('player');
     }
 
@@ -36,12 +35,9 @@ class Player {
         this.mouseY = 0;
         this.angle = 0;
         this.speed = 7;
-        this.projectiles = [];
+        this.vertices = [];
         this.velocity = { x: 0, y: 0 };
-        this.position = {
-            x: this.canvasWidth / 2,
-            y: this.canvasHeight / 2
-        };
+        this.position = { x: this.canvasWidth / 2, y: this.canvasHeight / 2 };
         this.keys = {
             z: { pressed: false },
             q: { pressed: false },
@@ -155,10 +151,10 @@ class Player {
         if (weaponType === 'laser') {
             projectile = Projectile.createProjectile(this, mouseX, mouseY);
         } else {
-            // Ajoutez d'autres types de projectiles ici si nécessaire
+            // Other weapons
         }
         if (projectile) {
-            this.physics.addProjectile(projectile);
+            this.gameEngine.addProjectile(projectile);
         }
     }
 
@@ -189,32 +185,8 @@ class Player {
     }
 
     update() {
-        this.update_physics()
-        this.update_position();
-        this.update_playerBounds();
-        this.update_movementEffect();
+        this.gameEngine.update();
         this.draw();
-    }
-
-    update_physics() {
-        this.physics.update();
-    }
-
-    update_position() {
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
-    }
-
-    update_playerBounds() {
-        const windowLimit = 32;
-        if (this.position.x - windowLimit < 0) this.position.x = windowLimit;
-        if (this.position.x + windowLimit > this.canvasWidth) this.position.x = this.canvasWidth - windowLimit;
-        if (this.position.y - windowLimit < 0) this.position.y = windowLimit;
-        if (this.position.y + windowLimit > this.canvasHeight) this.position.y = this.canvasHeight - windowLimit;
-    }
-
-    update_movementEffect() {
-        this.movementEffect.update(this, this.ctx);
     }
 
     debugTools() {
