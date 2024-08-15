@@ -47,6 +47,7 @@ class GameEngine {
 
             player.movementEffect.update(player, this.ctx);
 
+            player.getCollision();
             player.update(this.ctx);
         });
     }
@@ -65,14 +66,60 @@ class GameEngine {
 
             enemy.movementEffect.update(enemy, this.ctx);
 
+            enemy.getCollision();
             enemy.update(this.ctx);
         });
+    }
+
+    checkCollisions() {
+        // Collision joueur-enemy
+        this.players.forEach((player) => {
+            this.enemies.forEach((enemy) => {
+                if (this.checkEntityCollision(player, enemy)) {
+                    console.log('Player collided with Enemy!');
+                    //
+                }
+            });
+        });
+
+        // Collision projectile-enemy
+        this.projectiles.forEach((projectile) => {
+            this.enemies.forEach((enemy) => {
+                if (this.checkEntityCollision(projectile, enemy)) {
+                    console.log('Projectile collided with Enemy!');
+                    //
+                }
+            });
+        });
+
+        // Collision projectile-joueur (si applicable)
+        this.projectiles.forEach((projectile) => {
+            this.players.forEach((player) => {
+                if (this.checkEntityCollision(projectile, player)) {
+                    console.log('Projectile collided with Player!');
+                    //
+                }
+            });
+        });
+    }
+
+    checkEntityCollision(entityA, entityB) {
+        let response = new SAT.Response();
+        for (let polyA of entityA.getCollision()) {
+            for (let polyB of entityB.getCollision()) {
+                if (SAT.testPolygonPolygon(polyA, polyB, response)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     update() {
         this.updateProjectiles();
         this.updatePlayers();
         this.updateEnemies();
+        this.checkCollisions();
     }
 }
 

@@ -53,20 +53,21 @@ __Concept central:__</br>
 
 ---
 
-### v0.1.0
-| Version  | Objectif                                  | État |
-|:--------:|:------------------------------------------|:----:|
-| v0.0.1   | Moteur 2D Matter.js                       | 🛠️  |
-| v0.0.2   | Comportement IA basique                   | 📝  |
-| v0.0.3   | Première boucle de gameplay simple        | 📝  |
-| v0.0.4   | Menu pour lancer la boucle                | 📝  |
-| v0.0.5   | Menu pour les outils de debug             | 📝  |
-| _        | Système de collision SAT                  | ❌  |
+### Release v0.1.0:
+| Version  | Objectif                                                  | État |
+|:--------:|:----------------------------------------------------------|:----:|
+| v0.0.1   | SAT.js par [jriecken](https://github.com/jriecken/sat-js) | ✅  |
+| v0.0.2   | Définir la physique des entités                           | 🛠️  |
+| v0.0.3   | Comportement IA basique                                   | 📝  |
+| v0.0.4   | Première boucle de gameplay simple                        | 📝  |
+| v0.0.5   | UI menu du jeu & UI outils de debug                       | 📝  |
+| _        | Moteur 2D Matter.js                                       | ❌  |
+| _        | Système de collision SAT                                  | ❌  |
 
-__non assigné__
-| Version | Objectif                                        | État |
-|:--------|:------------------------------------------------|:----:|
-| _       | Renseigner les documents des aspects du jeu     | /    |
+__non assigné:__
+| Objectif                                        | État |
+|:------------------------------------------------|:----:|
+| Renseigner les documents des aspects du jeu     | /    |
 
 ## License
 Le projet ShapedCore est sous licence MIT.
