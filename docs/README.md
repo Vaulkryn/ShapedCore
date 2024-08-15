@@ -57,10 +57,12 @@ __Concept central:__</br>
 | Version  | Objectif                                                  | État |
 |:--------:|:----------------------------------------------------------|:----:|
 | v0.0.1   | SAT.js par [jriecken](https://github.com/jriecken/sat-js) | ✅  |
-| v0.0.2   | Définir la physique des entités                           | 🛠️  |
+| v0.0.2   | Définir la physique du jeu et la santé des entités        | 🛠️  |
 | v0.0.3   | Comportement IA basique                                   | 📝  |
 | v0.0.4   | Première boucle de gameplay simple                        | 📝  |
 | v0.0.5   | UI menu du jeu & UI outils de debug                       | 📝  |
+| v0.0.6   | Système de scores et de sauvegarde                        | 📝  |
+| v0.0.7   | Écran de chargement                                       | 📝  |
 | _        | Moteur 2D Matter.js                                       | ❌  |
 | _        | Système de collision SAT                                  | ❌  |
 
