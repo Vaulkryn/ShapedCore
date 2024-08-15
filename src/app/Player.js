@@ -35,7 +35,32 @@ class Player {
         this.mouseY = 0;
         this.angle = 0;
         this.speed = 7;
-        this.vertices = [];
+        this.polygons = [
+            new SAT.Polygon(new SAT.Vector(), [
+                new SAT.Vector(0, 8.442),
+                new SAT.Vector(-8.422, -4.221),
+                new SAT.Vector(8.422, -4.221)
+            ]),
+            new SAT.Polygon(new SAT.Vector(), [
+                new SAT.Vector(0, -44.058),
+                new SAT.Vector(12.642, -10.640),
+                new SAT.Vector(8.474, -4.484),
+                new SAT.Vector(-8.474, -4.484),
+                new SAT.Vector(-12.642, -10.640)
+            ]),
+            new SAT.Polygon(new SAT.Vector(), [
+                new SAT.Vector(-13.097, -10.007),
+                new SAT.Vector(-15.843, -1.957),
+                new SAT.Vector(-0.292, 20.586),
+                new SAT.Vector(-0.452, 8.991)
+            ]),
+            new SAT.Polygon(new SAT.Vector(), [
+                new SAT.Vector(13.174, -10.123),
+                new SAT.Vector(15.843, -1.957),
+                new SAT.Vector(0.370, 20.471),
+                new SAT.Vector(0.530, 8.875)
+            ])
+        ];
         this.velocity = { x: 0, y: 0 };
         this.position = { x: this.canvasWidth / 2, y: this.canvasHeight / 2 };
         this.keys = {
@@ -71,6 +96,20 @@ class Player {
 
     getAngle() {
         return this.angle;
+    }
+
+    getCollision() {
+        return this.polygons.map(poly => {
+            let rotatedPoints = poly.points.map(point => {
+                const rotatedX = Math.cos(this.angle) * point.x - Math.sin(this.angle) * point.y;
+                const rotatedY = Math.sin(this.angle) * point.x + Math.cos(this.angle) * point.y;
+                return new SAT.Vector(rotatedX, rotatedY);
+            });
+            let movedPoly = new SAT.Polygon(new SAT.Vector(), rotatedPoints);
+            movedPoly.translate(this.position.x, this.position.y);
+
+            return movedPoly;
+        });
     }
 
     isMoving() {
@@ -163,6 +202,31 @@ class Player {
         this.partsLoader.entityAssembler(this.ctx);
     }
 
+    playerCollisionBox() {
+        this.polygons.forEach(poly => {
+            const satPolygon = new SAT.Polygon(new SAT.Vector(0, 0), poly.points);
+    
+            this.ctx.beginPath();
+            const points = satPolygon.points;
+            this.ctx.moveTo(points[0].x + satPolygon.pos.x, points[0].y + satPolygon.pos.y);
+            for (let i = 1; i < points.length; i++) {
+                this.ctx.lineTo(points[i].x + satPolygon.pos.x, points[i].y + satPolygon.pos.y);
+            }
+            this.ctx.closePath();
+            this.ctx.strokeStyle = 'red';
+            this.ctx.stroke();
+    
+            /*points.forEach(point => {
+                const x = point.x + satPolygon.pos.x;
+                const y = point.y + satPolygon.pos.y;
+                this.ctx.fillStyle = 'blue';
+                this.ctx.beginPath();
+                this.ctx.arc(x, y, 2, 0, 2 * Math.PI);
+                this.ctx.fill();
+            });*/
+        });
+    }
+
     /*zoneEffect(x, y, radius) {
         this.ctx.shadowBlur = 0;
         this.ctx.beginPath();
@@ -180,6 +244,7 @@ class Player {
         this.ctx.rotate(this.angle);
         // this.zoneEffect(0, 0, 50);
         this.playerCharacter();
+        //this.playerCollisionBox();
         this.setAngle();
         this.ctx.restore();
     }
