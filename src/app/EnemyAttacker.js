@@ -31,6 +31,8 @@ class EnemyAttacker {
     initProperties() {
         this.angle = 0;
         this.speed = 7;
+        this.poise = 250;
+        this.repelForce = 2;
         this.polygons = [
             new SAT.Polygon(new SAT.Vector(), [
                 new SAT.Vector(0, 8.442),
@@ -156,7 +158,7 @@ class EnemyAttacker {
         this.ctx.shadowColor = "transparent";
         this.ctx.font = '18px Comic Sans MS';
         this.ctx.fillStyle = 'white';
-        this.ctx.fillText(`Enemy: X: ${this.position.x}, Y: ${this.position.y}`, this.position.x + 15, this.position.y + 25);
+        this.ctx.fillText(`Enemy: X: ${this.position.x.toFixed(2)}, Y: ${this.position.y.toFixed(2)}`, this.position.x + 15, this.position.y + 25);
     }
 }
 

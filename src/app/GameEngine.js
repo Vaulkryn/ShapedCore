@@ -46,7 +46,6 @@ class GameEngine {
             if (player.position.y + windowLimit > player.canvasHeight) player.position.y = player.canvasHeight - windowLimit;
 
             player.movementEffect.update(player, this.ctx);
-
             player.getCollision();
             player.update(this.ctx);
         });
@@ -64,39 +63,38 @@ class GameEngine {
             if (enemy.position.y - windowLimit < 0) enemy.position.y = windowLimit;
             if (enemy.position.y + windowLimit > enemy.canvasHeight) enemy.position.y = enemy.canvasHeight - windowLimit;
 
-            enemy.movementEffect.update(enemy, this.ctx);
+            const friction = 0.94;
+            enemy.velocity.x *= friction;
+            enemy.velocity.y *= friction;
+            if (Math.abs(enemy.velocity.x) < 0.01) enemy.velocity.x = 0;
+            if (Math.abs(enemy.velocity.y) < 0.01) enemy.velocity.y = 0;
 
+            enemy.movementEffect.update(enemy, this.ctx);
             enemy.getCollision();
             enemy.update(this.ctx);
         });
     }
 
     checkCollisions() {
-        // Collision joueur-enemy
         this.players.forEach((player) => {
             this.enemies.forEach((enemy) => {
                 if (this.checkEntityCollision(player, enemy)) {
-                    console.log('Player collided with Enemy!');
-                    //
+                    this.handleCollision(player, enemy);
                 }
             });
         });
-
-        // Collision projectile-enemy
         this.projectiles.forEach((projectile) => {
             this.enemies.forEach((enemy) => {
                 if (this.checkEntityCollision(projectile, enemy)) {
-                    console.log('Projectile collided with Enemy!');
+                    console.log('Projectile collided with Enemy');
                     //
                 }
             });
         });
-
-        // Collision projectile-joueur (si applicable)
         this.projectiles.forEach((projectile) => {
             this.players.forEach((player) => {
                 if (this.checkEntityCollision(projectile, player)) {
-                    console.log('Projectile collided with Player!');
+                    console.log('Projectile collided with Player');
                     //
                 }
             });
@@ -113,6 +111,37 @@ class GameEngine {
             }
         }
         return false;
+    }
+
+    handleCollision(player, enemy) {
+        let directionX = enemy.position.x - player.position.x;
+        let directionY = enemy.position.y - player.position.y;
+
+        let length = Math.sqrt(directionX * directionX + directionY * directionY);
+
+        const minDistance = 1;
+        if (length < minDistance) {
+            length = minDistance;
+        }
+
+        directionX /= length;
+        directionY /= length;
+
+        let forceQuantity = player.repelForce + Math.abs(player.velocity.x + player.velocity.y) / 2;
+
+        let forceX = (directionX * forceQuantity * Math.abs(player.velocity.x)) / Math.sqrt(enemy.poise);
+        let forceY = (directionY * forceQuantity * Math.abs(player.velocity.y)) / Math.sqrt(enemy.poise);
+
+        enemy.velocity.x += forceX;
+        enemy.velocity.y += forceY;
+
+        let overlap = minDistance - length;
+        if (overlap > 0) {
+            enemy.position.x += directionX * overlap;
+            enemy.position.y += directionY * overlap;
+        }
+        enemy.position.x += directionX * minDistance;
+        enemy.position.y += directionY * minDistance;
     }
 
     update() {

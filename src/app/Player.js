@@ -35,6 +35,8 @@ class Player {
         this.mouseY = 0;
         this.angle = 0;
         this.speed = 7;
+        this.poise = 250;
+        this.repelForce = 2;
         this.polygons = [
             new SAT.Polygon(new SAT.Vector(), [
                 new SAT.Vector(0, 8.442),
@@ -271,7 +273,7 @@ class Player {
         this.ctx.fillStyle = 'white';
         this.ctx.fillText(`FPS: ${this.fps}`, this.mouseX + 15, this.mouseY + 25);
         this.ctx.fillText(`Angle: ${this.angle.toFixed(3)}`, this.mouseX + 15, this.mouseY + 50);
-        this.ctx.fillText(`Player: X: ${this.position.x}, Y: ${this.position.y}`, this.mouseX + 15, this.mouseY + 75);
+        this.ctx.fillText(`Player: X: ${this.position.x.toFixed(0)}, Y: ${this.position.y}`, this.mouseX + 15, this.mouseY + 75);
         this.ctx.fillText(`Mouse: X: ${this.mouseX}, Y: ${this.mouseY}`, this.mouseX + 15, this.mouseY + 100);
     }
 }
