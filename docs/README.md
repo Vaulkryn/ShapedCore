@@ -23,25 +23,25 @@ __Concept central:__</br>
 
 ## Ressources
 
-**[Structure du projet](./ProjectStructure.md)**
+#### 📂 __[Structure du projet](./ProjectStructure.md)__
 
-**[Systèmes de jeu](./Systems.md)**
+#### ⚙️ __[Systèmes de jeu](./Systems.md)__
 
-**[Conception des niveaux](./Levels.md)**
+#### 🗺️ __[Conception des niveaux](./Levels.md)__
 
-**[Comportements des IA](./AI_Behaviors.md)**
+#### 🤖 __[Comportements des IA](./AI_Behaviors.md)__
 
-**[Conception graphique 2D](./2DGraphicsDesign.md)**
+#### 🎨 __[Conception graphique 2D](./2DGraphicsDesign.md)__
 
-**[Économie](./Economy.md)**
+#### 💰 __[Économie](./Economy.md)__
 
-**[UI/UX](./UI-UX.md)**
+#### 🖥️ __[UI/UX](./UI-UX.md)__
 
-**[Sound Design](./SoundDesign.md)**
+#### 🎵 __[Sound Design](./SoundDesign.md)__
 
-**[Narration](./Narrative.md)**
+#### ✍️ __[Narration](./Narrative.md)__
 
-**[Multijoueur](./Multiplayer.md)**
+#### 👥 __[Multijoueur](./Multiplayer.md)__
 
 ## Roadmap
 🛠️ En développement</br>
@@ -49,6 +49,7 @@ __Concept central:__</br>
 📝 Planifié</br>
 ✅ Terminé</br>
 🔄 Reporté</br>
+⏸️ Arrêté</br>
 ❌ Annulé</br>
 
 ---

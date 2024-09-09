@@ -1,12 +1,12 @@
+## 📂 Structure du projet
 ```
 ShapedCore
 │
 ├── docs/
-│   ├── 2DGraphicsDesign
+│   ├── 2DGraphicsDesign.md
 │   ├── AI_Behaviors.md
 │   ├── Economy.md
 │   ├── Levels.md
-│   ├── LICENSE.txt
 │   ├── Multiplayer.md
 │   ├── Narrative.md
 │   ├── ProjectStructure.md
@@ -52,5 +52,6 @@ ShapedCore
 │
 ├── .gitattributes
 ├── .gitignore
-└── index.php
+├── index.php
+└── LICENSE.txt
 ```
